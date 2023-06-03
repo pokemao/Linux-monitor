@@ -1,18 +1,29 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
-]
+  {
+    path: "/",
+    component: () => import("@/views/Tcpconnlat"),
+  },
+  {
+    path: "/tcpretrans",
+    component: () => import("@/views/Tcpretrans"),
+  },
+  {
+    path: "/tcprtt",
+    component: () => import("@/views/Tcprtt"),
+  },
+  {
+    path: "/biolatency",
+    component: () => import("@/views/Biolatency"),
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
