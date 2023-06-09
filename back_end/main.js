@@ -1,3 +1,18 @@
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+
+if (cluster.isMaster) {
+  console.log(`Master ${process.pid} is running`);
+
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+} else {
 // 导入第三方库mysql2，用于连接数据库
 const mysql = require("mysql2");
 
@@ -88,3 +103,5 @@ app.use(mainRouter.routes());
 app.listen(3333, () => {
   console.log(`服务器在3333启动成功~`);
 });
+}
+
